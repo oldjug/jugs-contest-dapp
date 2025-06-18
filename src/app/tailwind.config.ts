@@ -13,10 +13,6 @@ const config: Config = {
           light: '#ffe6f0',
           dark: '#9e0643',
         },
-        background: '#fff0f5',
-      },
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
       },
     },
   },
