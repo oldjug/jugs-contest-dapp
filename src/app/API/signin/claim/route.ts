@@ -1,29 +1,33 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
   try {
-    const { address } = await req.json();
+    const { walletAddress } = await req.json()
 
-    if (!address) {
-      return NextResponse.json({ success: false, error: 'Missing wallet address' }, { status: 400 });
+    const { data: user, error: userError } = await supabase
+      .from('users')
+      .select('id')
+      .eq('wallet_address', walletAddress)
+      .single()
+
+    if (userError || !user) return NextResponse.json({ success: false, error: 'User not found' })
+
+    const { data: balanceData, error: balanceError } = await supabase
+      .from('jugs_balance')
+      .select('unclaimed_balance')
+      .eq('user_id', user.id)
+      .single()
+
+    if (balanceError || balanceData.unclaimed_balance <= 0) {
+      return NextResponse.json({ success: false, error: 'No unclaimed JUGS' })
     }
 
-    const { error } = await supabase.from('claims').insert({
-      wallet: address,
-      timestamp: new Date().toISOString()
-    });
+    await supabase.rpc('move_unclaimed_to_claimed', {
+      user_id_input: user.id,
+      amount: balanceData.unclaimed_balance
+    })
 
-    if (error) throw error;
-
-    return NextResponse.json({ success: true });
-  } catch (err: any) {
-    console.error('Claim error:', err.message || err);
-    return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ success: true, message: 'JUGS claimed!' })
+  } catch (err) {
+    console.error('Claim error:', err)
+    return NextResponse.json({ success: false, error: 'Internal server error' })
   }
 }

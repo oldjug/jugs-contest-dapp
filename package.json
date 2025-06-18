@@ -19,6 +19,7 @@
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-tooltip": "^5.29.1",
     "tailwind-merge": "^3.3.1",
     "viem": "^2.31.0",
     "wagmi": "^2.15.6"

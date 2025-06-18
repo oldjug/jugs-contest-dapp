@@ -1,49 +1,36 @@
 'use client';
 
-import { useState } from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
-import { ConnectWallet } from '@/components/ConnectWallet';
-import ChainStatus from '@/components/ChainStatus';
-import SignIn from '@/components/SignIn';
+import React from 'react';
+import CustomConnect from '@/components/CustomConnect'; // custom wallet button
 import ClaimButton from '@/components/ClaimButton';
+import DictionarySearch from '@/components/DictionarySearch';
+import JugsBalanceBox from '@/components/JugsBalanceBox';
+import ClaimableJugsBox from '@/components/ClaimableJugsBox';
+import DrumDepositsBox from '@/components/DrumDepositsBox';
+import BuyJugsBox from '@/components/BuyJugsBox';
 
-export default function Home() {
-  const { isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
-  const [signedIn, setSignedIn] = useState(false);
-
+export default function HomePage() {
   return (
-    <main className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">🎉 Jugs Contest DApp</h1>
+    <main className="min-h-screen bg-black text-white p-6 space-y-12">
+      <header className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">JugsDrive DApp</h1>
+        <CustomConnect />
+      </header>
 
-      {/* Wallet connect + disconnect row */}
-      <div className="flex items-center gap-4">
-        <ConnectWallet />
-        <button
-          onClick={() => {
-            disconnect();
-            setSignedIn(false);
-          }}
-          className="text-sm text-gray-500 underline hover:text-gray-700 transition"
-        >
-          Disconnect
-        </button>
-      </div>
+      <section>
+        <ClaimButton />
+      </section>
 
-      {isConnected && (
-        <div className="mt-6">
-          {!signedIn ? (
-            <SignIn onAuthenticated={() => setSignedIn(true)} />
-          ) : (
-            <>
-              <ChainStatus />
-              <div className="mt-6">
-                <ClaimButton />
-              </div>
-            </>
-          )}
-        </div>
-      )}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <JugsBalanceBox />
+        <ClaimableJugsBox />
+        <DrumDepositsBox />
+        <BuyJugsBox />
+      </section>
+
+      <section>
+        <DictionarySearch />
+      </section>
     </main>
   );
 }
