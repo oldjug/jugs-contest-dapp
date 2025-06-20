@@ -13,7 +13,8 @@ const queryClient = new QueryClient();
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white font-sans">
+      {/* Global styles define the background and text colors */}
+      <body className="font-sans">
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider theme={darkTheme()} modalSize="compact">

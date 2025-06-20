@@ -4,5 +4,6 @@
 
 /* Optional custom global styles */
 body {
-  @apply bg-black text-white font-sans;
+  /* Use brand colors so the app isn't limited to black and white */
+  @apply bg-brand-light text-brand-dark font-sans;
 }
