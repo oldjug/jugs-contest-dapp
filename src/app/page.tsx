@@ -11,7 +11,7 @@ import BuyJugsBox from '@/components/BuyJugsBox';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-black text-white p-6 space-y-12">
+    <main className="min-h-screen p-6 space-y-12">
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">JugsDrive DApp</h1>
         <CustomConnect />

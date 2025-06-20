@@ -6,7 +6,7 @@ export default function JugsBalanceBox() {
   const { address } = useAccount();
 
   return (
-    <div className="bg-zinc-800 p-4 rounded text-white">
+    <div className="bg-brand-dark p-4 rounded text-brand-light">
       <h3 className="text-yellow-400 mb-1">Your JUGS Balance</h3>
       <div className="text-lg">
         {/* Replace with actual token balance logic */}
