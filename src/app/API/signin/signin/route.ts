@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyMessage } from 'viem';
+import { supabase } from '@/lib/supabaseClient'
 import { createClient } from '@supabase/supabase-js';
 
 // Supabase config

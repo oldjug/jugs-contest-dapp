@@ -28,7 +28,7 @@ export default function DictionarySearch() {
       <input
         type="text"
         placeholder="Search terms like NFT, DAO, wallet..."
-        className="w-full p-2 mb-4 rounded bg-black text-white border border-zinc-700 focus:outline-none focus:ring focus:ring-yellow-400"
+className="w-full p-2 mb-4 rounded bg-brand-light text-brand-dark border border-brand-dark focus:outline-none focus:ring focus:ring-brand"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

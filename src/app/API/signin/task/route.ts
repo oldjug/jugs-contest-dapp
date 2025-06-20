@@ -1,7 +1,7 @@
 // /app/api/task/route.ts
 
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/utils/supabaseClient'
+import { supabase } from '@/lib/supabaseClient'
 
 export async function POST(req: NextRequest) {
   try {

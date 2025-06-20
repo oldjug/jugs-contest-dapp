@@ -1,27 +1,17 @@
-'use client';
-
+// src/app/layout.tsx
+import '@rainbow-me/rainbowkit/styles.css'; 
 import './globals.css';
-import '@rainbow-me/rainbowkit/styles.css';
+import { ReactNode } from 'react';
 
-import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
-import { WagmiProvider } from 'wagmi';
-import { wagmiConfig } from '@/lib/wagmiConfig'; // 👈 IMPORTANT
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+export const metadata = {
+  title: 'Jugs Contest DApp',
+  description: 'Claim JUGS tokens and enter contests.',
+};
 
-const queryClient = new QueryClient();
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white font-sans">
-        <WagmiProvider config={wagmiConfig}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider theme={darkTheme()} modalSize="compact">
-              {children}
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

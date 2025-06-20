@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useAccount } from 'wagmi'
-import { supabase } from '@/utils/supabaseClient'
+import { supabase } from '@/lib/supabaseClient'
 
 export default function DashboardContent() {
   const { address } = useAccount()
