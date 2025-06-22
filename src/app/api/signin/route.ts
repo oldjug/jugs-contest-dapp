@@ -1,3 +1,6 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase } from '@/utils/supabaseClient';
+
 // src/api/tasks/route.ts
 export const POST = async (req: NextRequest) => {
   try {
