@@ -1,13 +1,18 @@
-// src/components/ProtectedRoute.tsx
+'use client';
 
-'use client'
-
-import React from 'react'
-import { useAccount } from 'wagmi'
-import Link from 'next/link'
+import { useAccount } from 'wagmi';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { address, isConnected } = useAccount()
+  const { isConnected } = useAccount();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) return null;
 
   if (!isConnected) {
     return (
@@ -22,8 +27,8 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
           </button>
         </Link>
       </div>
-    )
+    );
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }

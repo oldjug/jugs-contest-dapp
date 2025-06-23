@@ -1,28 +1,26 @@
-'use client';
+'use client'
 
-import './globals.css';
-import { Inter } from 'next/font/google';
-import { WagmiProvider } from 'wagmi';
-import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
-import '@rainbow-me/rainbowkit/styles.css';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { config } from '../wagmiConfig';
+import ProtectedRoute from '../components/ProtectedRoute'
+import WalletInfoCard from '../components/WalletInfoCard'
+import InviteTicketManager from '../components/InviteTicketManager'
+import ClaimDrumBox from '../components/DrumDepositsBox'
+import DictionarySearchBar from '../components/DictionarySearchBar'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const queryClient = new QueryClient();
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardPage() {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="bg-gradient-to-br from-black via-gray-900 to-black text-white min-h-screen font-sans">
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider theme={darkTheme()}>
-              {children}
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
-      </body>
-    </html>
-  );
+    <ProtectedRoute>
+      <main className="min-h-screen bg-black text-white p-4 space-y-6">
+        <h1 className="text-3xl font-bold">JugsDrive DApp</h1>
+
+        <WalletInfoCard />
+        <InviteTicketManager />
+        <ClaimDrumBox />
+
+        <section>
+          <h2 className="text-xl font-semibold">Web3 Dictionary</h2>
+          <DictionarySearchBar />
+        </section>
+      </main>
+    </ProtectedRoute>
+  )
 }
