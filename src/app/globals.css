@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-black text-white font-sans;
+html,
+body,
+#__next {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+  background-color: black;
+  color: white;
 }

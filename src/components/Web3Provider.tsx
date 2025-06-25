@@ -1,62 +1,25 @@
 'use client';
 
-import { ReactNode } from 'react';
-import {
-  WagmiProvider,
-  createConfig,
-  http,
-  Chain,
-} from 'wagmi';
-
+import { WagmiProvider, createConfig, http } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+import { RainbowKitProvider, getDefaultConfig } from '@rainbow-me/rainbowkit';
+import { vitruveoTestnet } from '../chains/vitruveoTestnet';
 
-const vitruveoTestnet: Chain = {
-  id: 14333,
-  name: 'Vitruveo Testnet',
-  network: 'vitruveo-testnet',
-  nativeCurrency: {
-    name: 'Test VTRU',
-    symbol: 'tVTRU',
-    decimals: 18,
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://test-rpc.vitruveo.xyz'],
-    },
-    public: {
-      http: ['https://test-rpc.vitruveo.xyz'],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: 'Vitruveo Explorer',
-      url: 'https://explorer.vitruveo.xyz',
-    },
-  },
-  testnet: true,
-};
+const WALLETCONNECT_PROJECT_ID = 'Y73fcb57aa5d04e0f797f5d1386930214';
 
-const { connectors } = getDefaultWallets({
-  appName: 'Jugs Contest DApp',
-  projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // Replace this with your actual WalletConnect Project ID
-});
-
-const config = createConfig({
+const config = getDefaultConfig({
+  appName: 'JugsDrive Contest dApp',
+  projectId: WALLETCONNECT_PROJECT_ID,
   chains: [vitruveoTestnet],
-  connectors,
   transports: {
-    [vitruveoTestnet.id]: http('https://test-rpc.vitruveo.xyz'),
+    [vitruveoTestnet.id]: http(),
   },
   ssr: true,
 });
 
 const queryClient = new QueryClient();
 
-export function Web3Provider({ children }: { children: ReactNode }) {
+export default function Web3Provider({ children }: { children: React.ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
